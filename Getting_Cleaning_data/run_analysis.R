@@ -97,7 +97,7 @@ colLabel <- gsub("\\(|\\)", "", colLabel)
 names(merged_data) <- colLabel 
 
 # ------------------------------------------------------------------------------------------------------------
-# 5. Creates a second independent tidy data set with average of each variable for each activity and subject.
+# 5. Create a second independent tidy data set with average of each variable for each activity and subject.
 # To calculate average values based of certain columns alone in a dataset, first install and source library ddply
 #
 # 5.a Install ddply package
