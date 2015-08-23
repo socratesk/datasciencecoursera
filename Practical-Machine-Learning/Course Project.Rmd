@@ -1,0 +1,147 @@
+---
+title: "Predictive Machine Learning"
+author: "Socrates"
+date: "Sunday, August 23, 2015"
+output: html_document
+---
+## Executive Summary
+This project is submitted as partial fulfilment of requirements of Practical Machine Learning course - part of Data Science curriculum. In this project, a training data set containing the key features of the personal activities of subjects measured using wearable devices such as <i>Jawbone Up, Nike FuelBand,</i> and <i>Fitbit</i> are provided to train and build the model. A test data set containing the key features of  different subjects are provided to classify and determine the "Class" of each subjects, based on the model determined using training data set.
+
+## Background
+Using devices such as Jawbone Up, Nike FuelBand, and Fitbit it is now possible to collect a large amount of data about personal activity relatively inexpensively. These type of devices are part of the quantified self movement - a group of enthusiasts who take measurements about themselves regularly to improve their health, to find patterns in their behaviour, or because they are tech geeks. One thing that people regularly do is quantify how much of a particular activity they do, but they rarely quantify how well they do it. In this project, your goal will be to use data from accelerometers on the belt, forearm, arm, and dumbell of 6 participants. They were asked to perform barbell lifts correctly and incorrectly in 5 different ways.<br>
+
+## Data Source
+To eliminate he network dependency between Workstation where the analysis will be performed and the data source (https://d396qusza40orc.cloudfront.net/predmachlearn/), the training and test data sets are downloaded and made available locally. 
+
+Training data (https://d396qusza40orc.cloudfront.net/predmachlearn/pml-training.csv) and test data (https://d396qusza40orc.cloudfront.net/predmachlearn/pml-testing.csv) set files are downdloded and made available in (C:\courses\8-Practical Machine Learning\Project) folder.
+
+## Load Data 
+First set working directory to load data into the system and then load the training data. Since it is .CSV file the files were opened and inspected in Excel to feel the data. This was required to feel the data structure and the types of values they contain. This, in fact, provided many important insights about the data.
+
+### Set working Directory
+```{r}
+setwd("C:/courses/8-Practical Machine Learning/Project")
+```
+
+### Replace special non-usable values to NA
+Since the data contains "#DIV/0!" as values in many of the fields, it is required to consider them as "NA" while loading.
+```{r}
+training <- read.csv("pml-training.csv", na.strings=c("NA", "#DIV/0!") )
+```
+
+### Remove columns containing NA
+There are many columns that contain just "NA" without contributing much to the problem. So the columns that has only actual values are considered for this analysis.
+```{r}
+training <- training[, colSums(is.na(training)) == 0]
+```
+
+### Cleanup unusable columns
+The data inspection in Excel also revealed that the first 7 columns are not directly participating in determining the "classe" of the model and they are more of informatory in nature. So it is decided to eliminate those columns before creating the model from dataset.
+```{r}
+training <- training[, 8:length(colnames(training))]
+
+colLen <- length(colnames(training))
+colLen
+```
+
+### Load Data libraries
+Load the libraries required for developing the model and performing analysis.
+```{r, warning=FALSE}
+library(rpart)
+library(rpart.plot)
+library(RColorBrewer)
+library(rattle)
+library(caret)
+```
+
+
+### Split data into Training and Test sets
+Since the test data set provided just contains 20 rows and they are mainly intended to answer the Project question, it is required to split the training data set into "training" and "test" data sets with 70-30 ratio.
+```{r}
+inTrain <- createDataPartition(y=training$classe, p=0.7, list=FALSE)
+trainingData <- training[inTrain, ]
+testingData <- training[-inTrain, ]
+
+dim(trainingData)
+dim(testingData)
+```
+<br>
+
+## Perform Predictions - Using Classification Tree
+Now that cleanedup data is ready for analysis and for building models. Let us first use "Classification Tree" algorithm to train and build the model and test them.
+
+### Set the seed for reproducibility
+```{r}
+set.seed(34344)
+```
+
+### Train the data and print model results
+Using the training data set created above, train the data and develop Classification tree model. To create CT model, use `'method=rpart'`
+```{r}
+modFitCT <- train(classe ~ ., data=training, method="rpart")
+modFitCT
+```
+
+### Print Decision tree Model
+```{r}
+fancyRpartPlot(modFitCT$finalModel)
+```
+
+### Predict the data
+Based on the model created above, use 'predict' function to predict the outcome of Testing Data to analyze the results and measure the accuracy of model.
+```{r}
+predCT <- predict(modFitCT, newdata=testingData)
+```
+
+### Create Confusion Matrix
+Print the accuracy of model tested on testing data set
+```{r}
+confusionMatrix(predCT, testingData$classe)
+```
+<br>
+
+## Perform Predictions - Using Random Forest
+The second part of this analysis is to build a model using "Random Forest" algorithm to train and build the model and test them.
+
+### Set the seed for reproducibility
+```{r}
+set.seed(34344)
+```
+
+### Train the data and print model results
+Using the training data set created above, train the data and develop Random Forest model. To create RF model, use `'method=rf'`
+```{r}
+modFitRF <- train(classe ~ ., data=training, method="rf")
+print(modFitRF, digits=3)
+```
+
+### Predict the data
+Based on the model created above, use 'predict' function to predict the outcome of Testing Data to analyze the results and measure the accuracy of model.
+```{r}
+predRF <- predict(modFitRF, newdata=testingData)
+```
+
+### Create Confusion Matrix
+Print the accuracy of model tested on testing data set
+```{r}
+confusionMatrix(predRF, testingData$classe)
+```
+
+### Out of sample error
+The calculated accuracy from Random Forest algorithm: 1, that is 100% <br>
+The out-of-sample error (Error rate on new data test): 1 - 1 = 0.0, that is 0%
+
+<br><br>
+So the model derived from Random Forest is 100% accurate!!!
+
+## Conclusion
+Comparing the results of both Classification Tree and Random Forest, it is more evident that Random Forest produces more accurate result than Classification Tree. So let us use the model built by Random forest to determine the outcome of test data provided.
+
+```{r}
+# Load the testing data and apply the same clean-up process performed on training data set
+testing <- read.csv("pml-testing.csv", na.strings=c("NA", "#DIV/0!") )
+testing <- testing[, colSums(is.na(testing)) == 0]
+testing <- testing[, 8:length(colnames(testing))]
+
+predict(modFitRF, newdata=testing)
+```
