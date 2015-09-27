@@ -1,0 +1,73 @@
+Car Mileage Predictor
+========================================================
+author: Socrates Krishnamurthy
+date: 
+
+Introduction
+========================================================
+
+Calculation of 'Mileage' of various cars across the Globe is challenging and time consuming. This interactive application helps predict the mileage of a car when a set of parameters are provided.
+
+What this application do -
+
+- Uses <code>mtcars</code> dataset provided by 'Motor Trends Magazine' as reference
+- Uses Regression Alogorithm (Linear Model)
+- Gets User input for an unknown car
+- Predicts Mileage of unknown car using above Linear Model
+
+Dataset and Regression Model
+========================================================
+
+
+```r
+library(datasets); data(mtcars)
+
+linearModel <- lm(mpg ~  wt + cyl + disp + hp + am, data = mtcars)
+```
+
+Linear Model - Intercepts and Slope
+
+```r
+linearModel[1]
+```
+
+```
+$coefficients
+(Intercept)          wt         cyl        disp          hp          am 
+38.20279869 -3.30262301 -1.10637984  0.01225708 -0.02796002  1.55649163 
+```
+
+User Input
+========================================================
+
+Get the following input for a car:
+
+- wtIn: Weight of the car (in lbs/1000)
+- cylIn: No of Cylinders (4/6/8)
+- dispIn: Cylinder displacement volume (in Cu. In)
+- hpIn: Engine Gross horsepower (in Hp)
+- amIn: Types of transmission (0=Automatic / 1=Manual)
+
+
+Predit Mileage
+========================================================
+
+<u>Create Dataframe with Input</u>
+ 
+```
+df <- data.frame(wt=wtIn, cyl=cylIn, disp=dispIn, hp=hpIn, am=as.numeric(amIn))
+```
+<u>Predicted Mielage</u>
+
+
+```r
+#Considering Default values..
+df <- data.frame(wt=3.325, cyl=6, disp=196.3, hp=123, am=as.numeric(0))
+ 
+predict(linearModel, newdata=df)
+```
+
+```
+       1 
+19.55028 
+```
