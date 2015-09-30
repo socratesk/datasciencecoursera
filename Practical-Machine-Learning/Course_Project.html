@@ -77,14 +77,14 @@ img {
 <div id="data-source" class="section level2">
 <h2>Data Source</h2>
 <p>To eliminate the network dependency between Workstation where the analysis will be performed and the data source (<a href="https://d396qusza40orc.cloudfront.net/predmachlearn/" class="uri">https://d396qusza40orc.cloudfront.net/predmachlearn/</a>), the training and test datasets are downloaded and made available locally.</p>
-<p>Training (<a href="https://d396qusza40orc.cloudfront.net/predmachlearn/pml-training.csv" class="uri">https://d396qusza40orc.cloudfront.net/predmachlearn/pml-training.csv</a>) and Test (<a href="https://d396qusza40orc.cloudfront.net/predmachlearn/pml-testing.csv" class="uri">https://d396qusza40orc.cloudfront.net/predmachlearn/pml-testing.csv</a>) dataset files are downdloded and made available in (&quot;C:/courses/8-Practical Machine Learning/Project&quot;) folder.</p>
+<p>Training (<a href="https://d396qusza40orc.cloudfront.net/predmachlearn/pml-training.csv" class="uri">https://d396qusza40orc.cloudfront.net/predmachlearn/pml-training.csv</a>) and Test (<a href="https://d396qusza40orc.cloudfront.net/predmachlearn/pml-testing.csv" class="uri">https://d396qusza40orc.cloudfront.net/predmachlearn/pml-testing.csv</a>) dataset files are downdloded and made available in (&quot;../8-Practical Machine Learning/Project&quot;) folder.</p>
 </div>
 <div id="load-data" class="section level2">
 <h2>Load Data</h2>
 <p>First, set working directory to load data into the system and then load the training data. Since it is .CSV file the files were opened and inspected in Excel to feel the data. This was required to feel the data structure and the types of values they contain. This, in fact, provided many important insights about the data.</p>
 <div id="set-working-directory" class="section level3">
 <h3>Set working Directory</h3>
-<pre class="r"><code>setwd(&quot;C:/courses/8-Practical Machine Learning/Project&quot;)</code></pre>
+<pre class="r"><code>setwd(&quot;../8-Practical Machine Learning/Project&quot;)</code></pre>
 </div>
 <div id="replace-special-non-usable-values-to-na" class="section level3">
 <h3>Replace special non-usable values to NA</h3>
