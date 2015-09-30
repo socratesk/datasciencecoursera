@@ -72,16 +72,16 @@ img {
 </div>
 <div id="background" class="section level2">
 <h2>Background</h2>
-<p>Using devices such as Jawbone Up, Nike FuelBand, and Fitbit it is now possible to collect a large amount of data about personal activity relatively inexpensively. These type of devices are part of the quantified self movement - a group of enthusiasts who take measurements about themselves regularly to improve their health, to find patterns in their behaviour, or because they are tech geeks. One thing that people regularly do is quantify how much of a particular activity they do, but they rarely quantify how well they do it. In this project, your goal will be to use data from accelerometers on the belt, forearm, arm, and dumbell of 6 participants. They were asked to perform barbell lifts correctly and incorrectly in 5 different ways.<br></p>
+<p>Using wearable devices such as Jawbone Up, Nike FuelBand, and Fitbit, it is now possible to collect a large amount of data about personal activity relatively inexpensively. These type of devices are part of the quantified self movement - a group of enthusiasts who take measurements about themselves regularly to improve their health, to find patterns in their behaviour, or because they are tech geeks. One thing that people regularly do is quantify how much of a particular activity they do, but they rarely quantify how well they do it. In this project, the goal is to use data from accelerometers on the belt, forearm, arm, and dumbell of 6 participants. The participants were asked to perform barbell lifts correctly and incorrectly in 5 different ways.<br></p>
 </div>
 <div id="data-source" class="section level2">
 <h2>Data Source</h2>
 <p>To eliminate the network dependency between Workstation where the analysis will be performed and the data source (<a href="https://d396qusza40orc.cloudfront.net/predmachlearn/" class="uri">https://d396qusza40orc.cloudfront.net/predmachlearn/</a>), the training and test datasets are downloaded and made available locally.</p>
-<p>Training (<a href="https://d396qusza40orc.cloudfront.net/predmachlearn/pml-training.csv" class="uri">https://d396qusza40orc.cloudfront.net/predmachlearn/pml-training.csv</a>) and Test (<a href="https://d396qusza40orc.cloudfront.net/predmachlearn/pml-testing.csv" class="uri">https://d396qusza40orc.cloudfront.net/predmachlearn/pml-testing.csv</a>) dataset files are downdloded and made available in (C:-Practical Machine Learning) folder.</p>
+<p>Training (<a href="https://d396qusza40orc.cloudfront.net/predmachlearn/pml-training.csv" class="uri">https://d396qusza40orc.cloudfront.net/predmachlearn/pml-training.csv</a>) and Test (<a href="https://d396qusza40orc.cloudfront.net/predmachlearn/pml-testing.csv" class="uri">https://d396qusza40orc.cloudfront.net/predmachlearn/pml-testing.csv</a>) dataset files are downdloded and made available in (&quot;C:/courses/8-Practical Machine Learning/Project&quot;) folder.</p>
 </div>
 <div id="load-data" class="section level2">
 <h2>Load Data</h2>
-<p>First set working directory to load data into the system and then load the training data. Since it is .CSV file the files were opened and inspected in Excel to feel the data. This was required to feel the data structure and the types of values they contain. This, in fact, provided many important insights about the data.</p>
+<p>First, set working directory to load data into the system and then load the training data. Since it is .CSV file the files were opened and inspected in Excel to feel the data. This was required to feel the data structure and the types of values they contain. This, in fact, provided many important insights about the data.</p>
 <div id="set-working-directory" class="section level3">
 <h3>Set working Directory</h3>
 <pre class="r"><code>setwd(&quot;C:/courses/8-Practical Machine Learning/Project&quot;)</code></pre>
