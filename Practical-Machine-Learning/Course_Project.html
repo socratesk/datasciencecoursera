@@ -69,7 +69,7 @@ img {
 
 <div id="executive-summary" class="section level2">
 <h2>Executive Summary</h2>
-<p>This project is submitted as partial fulfilment of requirements of Practical Machine Learning course - part of Data Science curriculum. In this project, a training data set containing the key features of the personal activities of subjects measured using wearable devices such as <i>Jawbone Up, Nike FuelBand,</i> and <i>Fitbit</i> are provided to train and build the model. A test data set containing the key features of different subjects are provided to classify and determine the “Class” of each subjects, based on the model determined using training data set.</p>
+<p>This project is submitted as partial fulfilment of requirements of Practical Machine Learning course - part of Data Science curriculum. In this project, a training dataset containing the key features of the personal activities of subjects measured using wearable devices such as <i>Jawbone Up, Nike FuelBand,</i> and <i>Fitbit</i> are provided to train and build the model. A test dataset containing the key features of different subjects are provided to classify and determine the “Class” of each subjects, based on the model determined using training dataset.</p>
 </div>
 <div id="background" class="section level2">
 <h2>Background</h2>
@@ -77,8 +77,8 @@ img {
 </div>
 <div id="data-source" class="section level2">
 <h2>Data Source</h2>
-<p>To eliminate the network dependency between Workstation where the analysis will be performed and the data source (<a href="https://d396qusza40orc.cloudfront.net/predmachlearn/" class="uri">https://d396qusza40orc.cloudfront.net/predmachlearn/</a>), the training and test data sets are downloaded and made available locally.</p>
-<p>Training data (<a href="https://d396qusza40orc.cloudfront.net/predmachlearn/pml-training.csv" class="uri">https://d396qusza40orc.cloudfront.net/predmachlearn/pml-training.csv</a>) and test data (<a href="https://d396qusza40orc.cloudfront.net/predmachlearn/pml-testing.csv" class="uri">https://d396qusza40orc.cloudfront.net/predmachlearn/pml-testing.csv</a>) set files are downdloded and made available in (C:-Practical Machine Learning) folder.</p>
+<p>To eliminate the network dependency between Workstation where the analysis will be performed and the data source (<a href="https://d396qusza40orc.cloudfront.net/predmachlearn/" class="uri">https://d396qusza40orc.cloudfront.net/predmachlearn/</a>), the training and test datasets are downloaded and made available locally.</p>
+<p>Training (<a href="https://d396qusza40orc.cloudfront.net/predmachlearn/pml-training.csv" class="uri">https://d396qusza40orc.cloudfront.net/predmachlearn/pml-training.csv</a>) and Test (<a href="https://d396qusza40orc.cloudfront.net/predmachlearn/pml-testing.csv" class="uri">https://d396qusza40orc.cloudfront.net/predmachlearn/pml-testing.csv</a>) dataset files are downdloded and made available in (C:-Practical Machine Learning) folder.</p>
 </div>
 <div id="load-data" class="section level2">
 <h2>Load Data</h2>
@@ -123,7 +123,7 @@ library(rattle)</code></pre>
 </div>
 <div id="split-data-into-training-and-test-sets" class="section level3">
 <h3>Split data into Training and Test sets</h3>
-<p>Since the test data set provided just contains 20 rows and they are mainly intended to answer the Project question, it is required to split the training data set into "training" and "test" data sets with 70-30 ratio.</p>
+<p>Since the test dataset provided just contains 20 rows and they are mainly intended to answer the Project question, it is required to split the training dataset into "training" and "test" datasets with 70-30 ratio.</p>
 <pre class="r"><code>inTrain &lt;- createDataPartition(y=training$classe, p=0.7, list=FALSE)
 trainingData &lt;- training[inTrain, ]
 testingData &lt;- training[-inTrain, ]
@@ -144,7 +144,7 @@ dim(trainingData)</code></pre>
 </div>
 <div id="train-the-data-and-print-model-results" class="section level3">
 <h3>Train the data and print model results</h3>
-<p>Using the training data set created above, train the data and develop Classification tree model. To create CT model, use <code>method='rpart'</code></p>
+<p>Using the training dataset created above, train the data and develop Classification tree model. To create CT model, use <code>method='rpart'</code></p>
 <pre class="r"><code>modFitCT &lt;- train(classe ~ ., data=training, method=&quot;rpart&quot;)
 modFitCT</code></pre>
 <pre><code>## CART 
@@ -180,7 +180,7 @@ modFitCT</code></pre>
 </div>
 <div id="create-confusion-matrix" class="section level3">
 <h3>Create Confusion Matrix</h3>
-<p>Print the accuracy of model tested on testing data set</p>
+<p>Print the accuracy of model tested on testing dataset</p>
 <pre class="r"><code>confusionMatrix(predCT, testingData$classe)</code></pre>
 <pre><code>## Confusion Matrix and Statistics
 ## 
@@ -225,7 +225,7 @@ modFitCT</code></pre>
 </div>
 <div id="train-the-data-and-print-model-results-1" class="section level3">
 <h3>Train the data and print model results</h3>
-<p>Using the training data set created above, train the data and develop Random Forest model. To create RF model, use <code>method='rf'</code></p>
+<p>Using the training dataset created above, train the data and develop Random Forest model. To create RF model, use <code>method='rf'</code></p>
 <pre class="r"><code>modFitRF &lt;- train(classe ~ ., data=training, method=&quot;rf&quot;)
 print(modFitRF, digits=3)</code></pre>
 <pre><code>## Random Forest 
@@ -257,7 +257,7 @@ print(modFitRF, digits=3)</code></pre>
 </div>
 <div id="create-confusion-matrix-1" class="section level3">
 <h3>Create Confusion Matrix</h3>
-<p>Print the accuracy of model tested on testing data set</p>
+<p>Print the accuracy of model tested on testing dataset</p>
 <pre class="r"><code>confusionMatrix(predRF, testingData$classe)</code></pre>
 <pre><code>## Confusion Matrix and Statistics
 ## 
@@ -303,7 +303,7 @@ So the model derived from Random Forest is 100% accurate!!!
 <h2>Conclusion</h2>
 
 <p>Comparing the results of both Classification Tree and Random Forest, it is more evident that Random Forest produces more accurate result than Classification Tree. So let us use the model built by Random forest to determine the outcome of test data provided.</p>
-<pre class="r"><code># Load the testing data and apply the same clean-up process performed on training data set
+<pre class="r"><code># Load the testing data and apply the same clean-up process performed on training dataset
 testing &lt;- read.csv(&quot;pml-testing.csv&quot;, na.strings=c(&quot;NA&quot;, &quot;#DIV/0!&quot;) )
 testing &lt;- testing[, colSums(is.na(testing)) == 0]
 testing &lt;- testing[, 8:length(colnames(testing))]
